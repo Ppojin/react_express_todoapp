@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import TodoItem from "./TodoItem";
 
 class TodoItemList extends Component {
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return this.props.todoArr !== nextProps.todoArr;
+    // }
+
     render() {
         const {myToggle, myRemove, todoArr} = this.props;
         const todoListDom = todoArr.map(({id, checked, todoStr}) => (

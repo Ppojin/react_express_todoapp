@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 import './TodoItem.css';
 
 class TodoItem extends Component {
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return this.props.checked !== nextProps.checked;
+    // }
+
+
     handlerStopPropagation = (e) => {
         const {myRemove, id} = this.props;
         e.stopPropagation(); // myToggle 이 실행되지 않도록 함
