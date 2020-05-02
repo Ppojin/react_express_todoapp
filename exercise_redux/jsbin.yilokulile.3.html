@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2020 by anonymous (http://jsbin.com/yilokulile/3/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.6.0/redux.js">
+  </script>
+</head>
+<body>
+
+<script id="jsbin-javascript">
+console.log(Redux);
+
+//=================== 액션 ======================
+const INCREMENT = 'INCREMENT';
+const DECREMENT = 'DECREMENT';
+
+//가변적인 값이 들어가야 하면 파라미터를 넣어서 액션을 만든다.
+const increment = (diff) => ({
+    type: INCREMENT,
+    diff: diff
+});
+
+//값을 감소시키는 액션
+const decrement = (diff) => ({
+    type: DECREMENT,
+    diff: diff
+});
+
+//=================== 리듀서 ======================
+const initialState = {
+    number: 10,
+    foo: 'bar',
+    baz: 'qux'
+}
+function counter(state = initialState, action) {
+    console.log('reducer called...')
+    switch (action.type) {
+        case INCREMENT:
+            return {
+                ...state,
+                number: state.number + action.diff
+            };
+        case DECREMENT:
+            return {
+                ...state,
+                number: state.number - action.diff
+            };
+        default:
+            return state;
+    }
+}
+//=================== 스토어 ======================
+const {createStore} = Redux;
+const store = createStore(counter);
+console.log(store.getState());
+
+const unsubscribe = store.subscribe(() => {
+  console.log('>>> subscribe called...')
+  console.log(store.getState());
+})
+
+//=================== 디스패치 ======================
+store.dispatch(increment(10)); //10
+store.dispatch(decrement(5)); //5
+store.dispatch(decrement(5)); //8
+
+// console.log(counter(undefined, increment(10)));
+// console.log(counter(undefined, decrement(3)));
+</script>
+</body>
+</html>
