@@ -3,16 +3,17 @@ import './TodoItem.css';
 
 class TodoItem extends Component {
     handlerStopPropagation = (e) => {
-        e.stopPropagation(); // onToggle 이 실행되지 않도록 함
-        this.props.onRemove(this.props.id);
+        const {myRemove, id} = this.props;
+        e.stopPropagation(); // myToggle 이 실행되지 않도록 함
+        myRemove(id);
     };
 
     render() {
-        const {todoText, checked, id, onToggle} = this.props;
+        const {todoStr, checked, id, myToggle} = this.props;
         return (
-            <div className="todo-item" onClick={() => onToggle(id)}>
+            <div className="todo-item" onClick={() => myToggle(id)}>
                 <div className="remove" onClick={this.handlerStopPropagation}>&times;</div>
-                <div className={`todo-text ${checked && 'checked'}`}><div>{todoText}</div></div>
+                <div className={`todo-text ${checked && 'checked'}`}><div>{todoStr}</div></div>
                 { checked && (<div className="check-mark">✓</div>) }
             </div>
         );

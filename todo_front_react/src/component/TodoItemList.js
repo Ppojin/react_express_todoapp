@@ -3,11 +3,20 @@ import TodoItem from "./TodoItem";
 
 class TodoItemList extends Component {
     render() {
+        const {myToggle, myRemove, todoArr} = this.props;
+        const todoListDom = todoArr.map(({id, checked, todoStr}) => (
+            <TodoItem
+                key={id}
+                id={id}
+                todoStr={todoStr}
+                checked={checked}
+                myToggle={myToggle}
+                myRemove={myRemove}
+            />
+        ));
         return (
             <div>
-                <TodoItem todoText="할일1" checked={true}/>
-                <TodoItem todoText="할일2" />
-                <TodoItem todoText="할일3" />
+                {todoListDom}
             </div>
         );
     }
