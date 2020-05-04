@@ -1,6 +1,8 @@
 package com.multi.todoback.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -9,15 +11,16 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter @Builder
 @EqualsAndHashCode
+@DynamicInsert
 public class Todo {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(insertable = false, updatable=false)
+    private Long id;
 
-    @Column(unique = true)
+    @Column(unique = false)
     @NotBlank
     private String text;
 
-    @Column(unique = true)
-    @NotBlank
-    private String checked;
+    @Column(unique = false, columnDefinition = "boolean default false")
+    private Boolean checked;
 }

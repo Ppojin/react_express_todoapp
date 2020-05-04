@@ -49,7 +49,7 @@ app.get('/api/todos/:id', (req, res) => {
 
 //Todo 등록
 app.post('/api/todos', (req, res) => {
-  const todo = { id: getNextId(), ...req.body };
+  const todo = { id: getNextId(), checked: false, ...req.body };
   todos = [...todos, todo];
   console.log('post ',todos);
   res.send(todos);
