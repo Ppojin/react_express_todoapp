@@ -12,6 +12,7 @@ import java.util.List;
 @Controller
 @RestController
 @RequestMapping("api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TodoController {
     @Autowired private TodoRepo todoRepo;
 
@@ -25,7 +26,8 @@ public class TodoController {
     }
     @PostMapping("todos")
     public List<Todo> createTodo(@RequestBody Todo todo){
-        todo.setChecked(false);
+        // todo.setChecked(false);
+        System.out.println(todo);
         todoRepo.save(todo);
         return todoRepo.findAll();
     }

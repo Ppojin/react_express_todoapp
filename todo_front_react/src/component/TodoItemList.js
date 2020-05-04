@@ -1,22 +1,22 @@
 import React, {Component} from 'react';
 import TodoItem from "./TodoItem";
+import {connect} from "react-redux";
+import {fetchAllTodos, removeTodo} from "../actions";
 
 class TodoItemList extends Component {
+    //life-cycle method: 화면 load 될 때 호출
+    componentDidMount() {
+        this.props.fetchAllTodos();
+    }
+
     shouldComponentUpdate(nextProps, nextState) {
-        return this.props.todoArr !== nextProps.todoArr;
+        return this.props.todos !== nextProps.todos;
     }
 
     render() {
-        const {myToggle, myRemove, todoArr} = this.props;
-        const todoListDom = todoArr.map(({id, checked, todoStr}) => (
-            <TodoItem
-                key={id}
-                id={id}
-                todoStr={todoStr}
-                checked={checked}
-                myToggle={myToggle}
-                myRemove={myRemove}
-            />
+        const {todos} = this.props;
+        const todoListDom = todos.map(({id, checked, text}) => (
+            <TodoItem key={id} id={id} text={text} checked={checked} />
         ));
         return (
             <div>
@@ -25,5 +25,10 @@ class TodoItemList extends Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        todos: state.todos
+    }
+};
 
-export default TodoItemList;
+export default connect(mapStateToProps, { fetchAllTodos })(TodoItemList);
